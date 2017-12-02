@@ -22,7 +22,7 @@ class Partida:
 
     def dadoakBota(self):
         ausa = self.ausa(self.dadoKop,self.dadoKop*self.dadoAldeKop+1)
-        if self.debug==1: print "%d atera da dadoetan" % (ausa)
+        if self.debug==1: print ("%d atera da dadoetan" % (ausa))
         self.dadoTiradaKop=self.dadoTiradaKop+1
         return ausa;
 
@@ -31,7 +31,7 @@ class Partida:
             exit
         else:
             self.txanda=self.txanda+1
-            print "\t<tiradak zenb=\"%d\">" % (self.txanda)
+            print ("\t<tiradak zenb=\"%d\">" % (self.txanda))
             for jokalari in self.jokalariak:
                 if self.amaituta==False:
                     jokalari.berriroBota=1
@@ -42,7 +42,7 @@ class Partida:
                             zenbakia=self.dadoakBota()
                             if zenbakia == 6:
                                 jokalari.berriroBota=1
-                            if self.debug==1: print "%d-n nago! %d posizio aurreratu behar ditut" % (jokalari.posizio, zenbakia)
+                            if self.debug==1: print ("%d-n nago! %d posizio aurreratu behar ditut") % (jokalari.posizio, zenbakia)
                             jokalari.mugitu(zenbakia)
                             self.egoeraBereziakAplikatu(jokalari.zenbakia)
                             if jokalari.amaituta() == True:
@@ -56,34 +56,34 @@ class Partida:
                                     self.zigorraKendu(jokalari.zenbakia)
                             else:
                                 self.zigorraDekrementatu(jokalari.zenbakia)
-                        print "\t\t<tirada id=\"%d\" jokalari=\"%d\" dadoetanZenbat=\"%d\"/>" % (self.tiradaId, jokalari.zenbakia, zenbakia)
+                        print ("\t\t<tirada id=\"%d\" jokalari=\"%d\" dadoetanZenbat=\"%d\"/>" % (self.tiradaId, jokalari.zenbakia, zenbakia))
                 else:
                     self.tiradaId=self.tiradaId+1
-                    print "\t\t<tirada id=\"%d\" jokalari=\"%d\" dadoetanZenbat=\"%d\"/>" % (self.tiradaId, jokalari.zenbakia, 0)
-            print "\t</tiradak>"
+                    print ("\t\t<tirada id=\"%d\" jokalari=\"%d\" dadoetanZenbat=\"%d\"/>" % (self.tiradaId, jokalari.zenbakia, 0))
+            print ("\t</tiradak>")
                         
     def __str__(self):
         return "Partida zoragarria, %d txandan, %d jokalarirekin eta %d dadorekin" % (self.txanda, self.jokalariKop, self.dadoKop)
 
     def egoeraBereziakAplikatu(self, jokz):
         pos = self.jokalariak[jokz].posizio
-        if self.debug==1: print "%d naiz, %d-n nago eta egoera berezi bat aplikatu behar dut" % (self.jokalariak[jokz].zenbakia, pos)
+        if self.debug==1: print ("%d naiz, %d-n nago eta egoera berezi bat aplikatu behar dut" % (self.jokalariak[jokz].zenbakia, pos))
         if (pos % 9 == 0) and (pos < 63) and (pos > 8):
             self.jokalariak[jokz].mugitu(5)
             self.jokalariak[jokz].berriroBota=1
-            if self.debug==1: print "De oca a oca y tiro porque me toca1"
+            if self.debug==1: print ("De oca a oca y tiro porque me toca1")
         elif (((pos - 5) % 9) == 0) and (pos < 63) and (pos > 4):
             self.jokalariak[jokz].mugitu(4)
             self.jokalariak[jokz].berriroBota=1
-            if self.debug==1: print "De oca a oca y tiro porque me toca2"
+            if self.debug==1: print ("De oca a oca y tiro porque me toca2")
         elif (pos == 6):
             self.jokalariak[jokz].mugitu(6)
-            if self.debug==1: print "De puente a puente"
+            if self.debug==1: print ("De puente a puente")
             self.jokalariak[jokz].berriroBota=1
         elif (pos == 12):
             self.jokalariak[jokz].mugitu(-6)
             self.jokalariak[jokz].berriroBota=1
-            if self.debug==1: print "De puente a puente marcha atras"
+            if self.debug==1: print ("De puente a puente marcha atras")
         elif (pos == 26):
             self.jokalariak[jokz].mugitu(27)
             self.jokalariak[jokz].berriroBota=1
@@ -105,13 +105,13 @@ class Partida:
             self.jokalariak[jokz].zigorra="laberinto"
             self.jokalariak[jokz].zigorraZenbat=self.jokalariak[jokz].zigorraZenbat+1
         else:
-            if self.debug==1: print "Ezin izan dut egoera berezirik aplikatu!"
+            if self.debug==1: print ("Ezin izan dut egoera berezirik aplikatu!")
             
     def inprimatuTxandaXmlz(self):
-        print "\t<txandaInfo zenb=\"%d\">" % (self.txanda)
+        print ("\t<txandaInfo zenb=\"%d\">" % (self.txanda))
         for jokalari in self.jokalariak:
-            print "\t\t<jokalari zenb=\"%d\" posizio=\"%d\"/>" % (jokalari.zenbakia, jokalari.posizio)
-        print "\t</txandaInfo>"
+            print ("\t\t<jokalari zenb=\"%d\" posizio=\"%d\"/>" % (jokalari.zenbakia, jokalari.posizio))
+        print ("\t</txandaInfo>")
 
     def zigorraKendu(self, jokz):
         self.jokalariak[jokz].zigorra=""
@@ -122,13 +122,13 @@ class Partida:
         if self.jokalariak[jokz].zigorraZenbat==0: self.jokalariak[jokz].zigorra=""
 
     def behekoa(self):
-        print "</partida>"
+        print ("</partida>")
 
     def goiburukoa(self):
-        print "<partida>"
+        print ("<partida>")
 
     def txandaBehekoa(self):
-        print "</txanda>"
+        print ("</txanda>")
 
     def txandaGoiburukoa(self):
-        print "<txanda zenb=\"%d\">" % (self.txanda+1)
+        print ("<txanda zenb=\"%d\">" % (self.txanda+1))
