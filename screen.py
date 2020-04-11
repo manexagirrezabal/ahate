@@ -7,6 +7,8 @@ plt.ion()
 #http://www.nikukyu.es/archivos/juego%20oca%202.jpg
 board = skimage.io.imread("juegooca2.jpg")
 
+boardsize = board.shape
+
 positions={
 1:(500,1700),2:(650,1700),3:(800,1700),4:(950,1700),5:(1100,1700),
 6:(1220,1700),7:(1400,1700),8:(1550,1700),9:(1700,1600),10:(1700,1400),
@@ -27,24 +29,64 @@ list_colors = ['r','b','g','c','m','y']
 
 
 
-fig,ax = plt.subplots(figsize=(15,15))
+fig,ax = plt.subplots(ncols=2,figsize=(15,15))
+plt.subplot(1,2,1)
 sizeparam = np.mean(fig.get_size_inches())
 
 plt.imshow(board,alpha=0.7);
 
-plt.show()
+
 
 def show_situation(list_positions):
 
     poss = [positions[val] for val in list_positions]
+
+
+
+
     plotted_elements = plt.scatter([el[0] for el in poss],[el[1] for el in poss],
                color=list_colors[:len(list_positions)],s=30*sizeparam)
 
-    ax.xaxis.set_ticks_position('top') # the rest is the same
+    ax[1].xaxis.set_ticks_position('top') # the rest is the same
     plt.draw()
     return plotted_elements
 
 def clean_plotted(elements):
 	elements.remove()
+
+def plot_number(zenbakia, ax):
+#	ax.text(x=0.5,y=0.5,s=str(zenbakia))
+
+	ax.axis([0,4,0,4])
+	if zenbakia==1:
+		ax.scatter([0.5],[0.5],s=30*sizeparam,color="black")
+	elif zenbakia==2:
+		ax.scatter([0.2,0.8],[0.2,0.8],s=30*sizeparam,color="black")
+	elif zenbakia==3:
+		ax.scatter([0.2,0.5,0.8],[0.2,0.5,0.8],s=30*sizeparam,color="black")
+	elif zenbakia==4:
+		ax.scatter([0.2,0.2,0.8,0.8],[0.2,0.8,0.2,0.8],s=30*sizeparam,color="black")
+	elif zenbakia==5:
+		ax.scatter([0.2,0.2,0.8,0.8,0.5],[0.2,0.8,0.2,0.8,0.5],s=30*sizeparam,color="black")
+	elif zenbakia==6:
+		ax.scatter([0.2,0.2,0.8,0.8,0.2,0.8],[0.2,0.8,0.2,0.8,0.5,0.5],s=30*sizeparam,color="black")
+	else:
+		ax.text(x=0.5,y=0.5,s=str(zenbakia))
+
+def show_players(partida,hurrengojokalari):
+
+#	print ([jok.zenbakia for jok in partida.jokalariak])
+	print (hurrengojokalari.zenbakia)
+	ypos = 3.5
+	for idx,jokalari in enumerate(partida.jokalariak):
+
+		if jokalari == hurrengojokalari:
+			plt.text(x=1,y=ypos,s=jokalari.izena)
+		else:
+			plt.text(x=0.75,y=ypos,s=jokalari.izena)
+		plt.scatter([0.25],[ypos],color=list_colors[idx],s=30*sizeparam)
+
+		ypos = ypos - 0.3
+
 
 #show_situation([5,8,25,56])

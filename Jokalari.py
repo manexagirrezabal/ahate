@@ -1,10 +1,14 @@
 class Jokalari:
-    def __init__ (self, zenb):
+    def __init__ (self, zenb,izena=None):
         self.zenbakia=zenb;
         self.posizio=0;
         self.zigorra="";
         self.zigorraZenbat=0;
         self.berriroBota=0;
+        if izena is None:
+            self.izena = "jokalari"+str(zenb)
+        else:
+            self.izena = izena
 
     def zigortuta (self):
         if self.zigorraZenbat > 0:

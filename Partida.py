@@ -1,5 +1,10 @@
 import Jokalari;
 import random;
+import sys
+
+import screen
+from matplotlib import pyplot as plt
+
 class Partida:
     def __init__(self, jokkop, dadokop, xmlz, debug):
         self.txanda = 0
@@ -42,7 +47,7 @@ class Partida:
                             zenbakia=self.dadoakBota()
                             if zenbakia == 6:
                                 jokalari.berriroBota=1
-                            if self.debug==1: print ("%d-n nago! %d posizio aurreratu behar ditut") % (jokalari.posizio, zenbakia)
+                            if self.debug==1: print (("%d-n nago! %d posizio aurreratu behar ditut") % (jokalari.posizio, zenbakia))
                             jokalari.mugitu(zenbakia)
                             self.egoeraBereziakAplikatu(jokalari.zenbakia)
                             if jokalari.amaituta() == True:
@@ -57,6 +62,23 @@ class Partida:
                             else:
                                 self.zigorraDekrementatu(jokalari.zenbakia)
                         print ("\t\t<tirada id=\"%d\" jokalari=\"%d\" dadoetanZenbat=\"%d\"/>" % (self.tiradaId, jokalari.zenbakia, zenbakia))
+
+                        plt.subplot(1,2,2,aspect="equal")
+                        plt.cla()
+                        
+                        screen.plot_number(zenbakia, ax=plt)
+                        screen.show_players(self,jokalari)
+
+                        plt.subplot(1,2,1)
+                        positions = [jokalari.posizio if jokalari.posizio != 0 else 1 for jokalari in self.jokalariak]
+                        plotted_ones = screen.show_situation(positions)
+                        ev = plt.waitforbuttonpress()
+                        if ev == "q":
+                            sys.exit()
+                        screen.clean_plotted(plotted_ones)
+
+
+
                 else:
                     self.tiradaId=self.tiradaId+1
                     print ("\t\t<tirada id=\"%d\" jokalari=\"%d\" dadoetanZenbat=\"%d\"/>" % (self.tiradaId, jokalari.zenbakia, 0))
